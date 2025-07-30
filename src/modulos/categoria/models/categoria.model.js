@@ -4,10 +4,11 @@ const { sequelize } = require('../../../config/configDb');
 
 const Categoria = sequelize.define('Categoria', {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     primaryKey: true,
-    autoIncrement: true,
+    defaultValue: DataTypes.UUIDV4, // Adicione isso
   },
+  
   nome: {
     type: DataTypes.STRING,
     allowNull: false,

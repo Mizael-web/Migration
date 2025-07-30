@@ -4,7 +4,7 @@ const Estoque = require("../models/estoqueModel");
 class EstoqueController {
   static async criar(req, res) {
     try {
-      const { nome, marca, categoria, quantidade, preco_unitario } = req.body;
+      const {nome, marca, categoria, quantidade, preco_unitario } = req.body;
 
       if (!nome || !marca || !categoria || !quantidade || !preco_unitario) {
         return res.status(400).json({ msg: "Campos obrigatórios ausentes." });

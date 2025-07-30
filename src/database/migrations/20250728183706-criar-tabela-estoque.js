@@ -6,45 +6,51 @@ module.exports = {
    
      await queryInterface.createTable('estoque', { 
       id: {
-       type: DataTypes.INTEGER,
+       type: Sequelize.UUID, // Corrigido de UIID para UUID
        primaryKey: true,
-       autoIncrement: true,
      },
      nome: {
-       type: DataTypes.STRING,
+       type: Sequelize.STRING,
        allowNull: false,
      
      },
      marca: {
-       type: DataTypes.STRING,
+       type: Sequelize.STRING,
        allowNull: false,
       
      },
      categoria: {
-       type: DataTypes.STRING,
+       type: Sequelize.STRING,
        allowNull: false,
       
        },
      
      quantidade: {
-       type: DataTypes.INTEGER,
+       type: Sequelize.INTEGER,
        allowNull: false,
        
      },
        preco_unitario: {
-         type: DataTypes.DECIMAL(10, 2),
+         type: Sequelize.DECIMAL(10, 2),
          allowNull: false,
        }, 
          
        });
       
-       await queryInterface.addIndex('estoque', ['marca']);
-       await queryInterface.addIndex('estoque', ['categoria']);
          
   
-  async down (queryInterface, Sequelize) {
-
-   await queryInterface.dropTable('estoque');
+   
+  await queryInterface.addIndex('estoque', ['marca']);
+  await queryInterface.addIndex('estoque', ['categoria']);
      
-  }
+  },
+  async down(queryInterface, Sequelize) {
+
+  
+    // Remover índices
+    await queryInterface.removeIndex('estoque', ['marca']); // Corrigido de estoque para usuario
+    await queryInterface.removeIndex('estoque', ['categoria']); // Corrigido de estoque para usuario
+
+  },
+
 };

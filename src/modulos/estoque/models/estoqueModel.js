@@ -1,11 +1,12 @@
+
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../../../config/configDb");
 
 const Estoque = sequelize.define("Estoque", {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     primaryKey: true,
-    autoIncrement: true,
+    defaultValue: DataTypes.UUIDV4,
   },
   nome: {
     type: DataTypes.STRING,
@@ -26,15 +27,15 @@ const Estoque = sequelize.define("Estoque", {
       },
     },
   },
-  categoria: {
-    type: DataTypes.STRING,
+  categoriaId: {
+    type: DataTypes.UUID,
     allowNull: false,
-    validate: {
-      isIn: {
-        args: [["Bike", "Acessorio", "Peça"]],
-        msg: "Categoria deve ser: Bike, Acessorio ou Peça.",
-      },
+    references: {
+      model: 'categoria', // nome da tabela referenciada
+      key: 'id',
     },
+    onUpdate: 'CASCADE',
+    onDelete: 'RESTRICT', // ou 'CASCADE' se quiser remover os estoques junto
   },
   quantidade: {
     type: DataTypes.INTEGER,
@@ -58,6 +59,7 @@ const Estoque = sequelize.define("Estoque", {
   tableName: "estoque",
   createdAt: "criado_em",
   updatedAt: "atualizado_em",
+  underscored: true,
 });
 
 module.exports = Estoque;
