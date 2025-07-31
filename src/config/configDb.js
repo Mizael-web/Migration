@@ -1,19 +1,17 @@
 
 const { Sequelize } = require('sequelize');
-require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config();
 
 const sequelize = new Sequelize(
   process.env.DB_DATABASE,
   process.env.DB_USER,
   process.env.DB_PASSWORD,
-  {
+  { 
     host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT) || 5432,
+    port: Number(process.env.DB_PORT), // converte string para número
     dialect: 'postgres',
-    logging: false, // Altere para true se quiser ver as queries no console
-    dialectOptions: {
-      ssl: process.env.DB_SSL === 'true' ? { require: true, rejectUnauthorized: false } : false,
-    },
+    logging: false,
   }
 );
 

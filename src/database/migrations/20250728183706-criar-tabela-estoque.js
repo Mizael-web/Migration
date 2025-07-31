@@ -52,5 +52,8 @@ module.exports = {
     await queryInterface.removeIndex('estoque', ['categoria']); // Corrigido de estoque para usuario
 
   },
+    async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable("estoque");
+  },
 
 };

@@ -46,7 +46,9 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     // Remover índices
     await queryInterface.removeIndex('usuario', ['email']);
-    await queryInterface.removeIndex('usuario', ['papel']);
-  
+    await queryInterface.removeIndex('usuario', ['papel']);  
+  },
+   async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable("usuario");
   },
 };
